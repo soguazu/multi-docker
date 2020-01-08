@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "soguazu/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "soguazu/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "soguazu/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "soguazu/multi-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "postMappings": [
+        {
+          "hostPort": 80,
+          "containerPost": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}
